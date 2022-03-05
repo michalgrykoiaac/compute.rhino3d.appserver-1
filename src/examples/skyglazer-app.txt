@@ -1,0 +1,56 @@
+SKYGLAZER
+
+1 ABOUT
+
+An online web configurator for designing and panalizing glass roofs.
+
+2 INPUT
+
+FEELING LUCKY
+RH_IN:randomSeed - number
+
+SITE SITE-UP
+RH_IN:siteWidth - number
+RH_IN:siteLength - number
+
+ARC CREATION
+RH_IN:arcRadius1 - number
+RH_IN:arcRadius2 - number
+RH_IN:arcRadius3 - number
+RH_IN:arcRadius4 - number
+
+PANELIZATION
+RH_IN:panelType - number
+RH_IN:uDivisions - number
+RH_IN:vDivisions - number
+
+GROUPING
+RH_IN:showGroupNumbers - boolean
+RH_IN:panelGroupingType - number
+RH_IN:panelTypeNumber - number
+
+COLOURING
+RH_IN:showColour - boolean
+RH_IN:panelColour - number
+
+
+3 OUTPUT
+
+DATA
+skyVisibilityArea
+centralPathLength
+panelType
+colourGradient
+panelNumber
+panelTypeNumber
+
+GEOMETRY
+RH_OUT:curves - curves
+RH_OUT:colour - mesh
+RH_OUT:tags - curves
+
+4 NOTES
+
+*Lunch box plugin used for panelization but to be replace with custom definitions.
+
+ 
