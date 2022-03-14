@@ -9,7 +9,7 @@ import { Rhino3dmLoader } from "https://cdn.jsdelivr.net/npm/three@0.124.0/examp
 const definitionName = "sphereGrow.gh";
 
 
-
+var growVal = 1;
 
 
 // Set up texts
@@ -56,16 +56,16 @@ function radioClick(){
           if (growButton.checked){
             growVal = growButton.value;
             console.log(growVal)
-          return;
+          }
         
-      }}
+      }
       
     // show spinner
     document.getElementById('loader').style.display = 'block'
     compute()
 }
 
-var growVal = 3;
+
 
 async function compute() {
 

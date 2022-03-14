@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+section{
+    width:100%;
+    height: 100vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #5290ee, #a7d5f3, #23A6D5, #23D5AB);
+    background-size: 400%, 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
+}
+
+h1 a{
+    font-size:5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: aliceblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 1rem;
+    
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section>
+        <h1> <a href="main.html"> SKY GLAZER </a> </h1>
+    </section>
+    
+</body>
+</html>

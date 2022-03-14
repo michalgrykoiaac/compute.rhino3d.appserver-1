@@ -70,7 +70,6 @@ function radioClick() {
     if (panelTypeButton.checked) {
       panelTypeVal = panelTypeButton.value;
       console.log(panelTypeVal);
-      return;
     } 
   }
 
@@ -86,7 +85,8 @@ let cameraRig, activeCamera, activeHelper;
 let cameraPerspective, cameraOrtho;
 let cameraPerspectiveHelper, cameraOrthoHelper;
 let rhino, doc
-//let points = []
+
+let points = []
 
 rhino3dm().then(async m => {
     console.log('Loaded rhino3dm.')
@@ -104,7 +104,7 @@ rhino3dm().then(async m => {
     const data = {
       definition: definition,
       inputs: {
-       
+        //'points': points,
        'RH_IN:siteLength': siteLength.valueAsNumber,
        'RH_IN:siteWidth': siteWidth.valueAsNumber,
        'RH_IN:arcRadius1': arcRadius1.valueAsNumber,
@@ -114,6 +114,8 @@ rhino3dm().then(async m => {
         'RH_IN:uDivisions': uDivisions.valueAsNumber,
         'RH_IN:vDivisions': vDivisions.valueAsNumber,
         'RH_IN:panelType': parseInt(panelTypeVal),
+        
+        
  
       }
     }
@@ -177,12 +179,16 @@ rhino3dm().then(async m => {
           
 
 
-          //GET VALUES
-         // if (values[i].ParamName == "RH_OUT:sky_visibility_area") {
-          //  skyArea = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
-         //  console.log(skyArea);
-         // }
+    
 
+             //GET VALUES
+             if (values[i].ParamName == "RH_OUT:sky_visibility_area") {
+              //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+              skyArea = Math.round(branch[j].data)
+  
+              console.log(skyArea)
+            }
+            //console.log(area)
 
           
           //console.log(values[i].ParamName)
