@@ -5,65 +5,115 @@
         <title>AppServer Examples</title>
         <style>
             body { font-family: Arial, Helvetica, sans-serif; }
-            table { border: none; border-collapse: collapse; }
-            table td {
-                border-left: 1px solid white;
-                padding: 10px;
-            }
-            table td:first-child { border-left: none; }
+         
+nav ul li{
+    list-style: none;
+    margin:1.5rem;
+    
+    
+}
+
+nav ul li a{
+    text-decoration: none;
+    font-size: 2rem;
+    color: rgb(169, 235, 255);
+    padding: 1rem;
+    letter-spacing: 5px;
+    position: relative;
+ 
+}
+
+nav ul li a::after{
+    content:'';
+    height:3px;
+    width:0%;
+    background: #eea16d;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.5s;
+    transition-timing-function:cubic-bezier(0.23, 1, 0.320, 1);
+    color: rgb(255, 255, 255);
+
+}
+nav ul li a:hover{
+    color: rgb(255, 255, 255);
+}
+
+nav ul li a:hover::after{
+    
+    width:100%;
+    
+}
+
+nav{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    z-index:2;
+    top:0;
+    left:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+ .navheader{
+    font-size: 1rem;
+    color: #fff;
+    z-index: -1;
+    width:50%;
+    
+    
+   
+   /* transform: translate(-50%, -50%); */
+}
+
+
+p{
+ margin-bottom: 4rem;
+ font-size: 1rem;
+ font-style: italic;
+}
         </style>
     </head>
     <body>
-        <h1>AppServer Examples</h1>
-        <p>These examples cover GH Documents that might have additional information, or aren't handled by the /view endpoint.</p>
-        <table>
-            <tr>
-                <td><a href="./spikyThing/">spikyThing</a></td>
-                <td>GH definition that uses SubD components to create a spiky ball. Output is returned as a b64 Draco compressed mesh and is decompressed with rhino3dm. There is additional code in this sample that shows how to extract the timings for various aspects of the update cycle.</td>
-            </tr>
-            <tr>
-                <td><a href="./delaunay/">delaunay</a></td>
-                <td>This example shows how to select points as input.</td>
-            </tr>
-            <tr>
-                <td><a href="./panels/">panels</a></td>
-                <td>This example how to use numeric output to add more information in the UI.</td>
-            </tr>
+        
+        <nav>
 
-            <tr>
-                <td><a href="./node/">nodes</a></td>
-                <td>This example shows how to use points as inputs.</td>
-            </tr>
-
-            <tr>
-                <td><a href="./metaballTable/">Metaball</a></td>
-                <td>This example shows how to use points as inputs.</td>
-            </tr>
-
-            <tr>
-                <td><a href="./curveControl/">curveControl</a></td>
-                <td>This example shows how to control a curve with points.</td>
-            </tr>
-
-            <tr>
-                <td><a href="./curveControl2/">curveControl2</a></td>
-                <td>This example shows how to control a curve and arcs with points.</td>
-            </tr>
-
-            <tr>
-                <td><a href="./curveControl3/">curveControl3</a></td>
-                <td>This example shows how to control a form with points.</td>
-            </tr>
-
-            <tr>
-                <td><a href="./skyglazer/">skyglazer prototype</a></td>
-                <td>This example shows how to glaze the sky.</td>
-            </tr>
+        <span class = "navheader">   
+        <h1>IAAC MaCAD</h1>
+        <p>Digital tool for Cloud-based Data Management <br><br> Michal Gryko 
             
-            <tr>
-                <td><a href="./skyglazerFinal/">skyglazer final</a></td>
-                <td>This example shows how to glaze the sky.</td>
-            </tr>
-        </table>
+            
+            <!---
+        Instructors: David + Hesham  <br> <br> <br> 
+        The projects to the right are developed during the course, showcasing the power to managing and representing data from Rhino 3D on the web in a fun and interactive manner
+        <br> <br><br> <br> Projects by Michal Gryko
+        --->
+
+        </p>
+        </span> 
+
+        
+
+
+        <ul>
+                <li><a href="./alienArtefacts/">- ALIEN ARTEFACTS -</a></li>
+                
+
+                <li><a href="./laVista/">- LA VISTA -</a></li>
+                
+           
+                <li><a href="./skyglazer/">- SKYGLAZER -</a></li>
+                
+      
+                <li><a href="./spaceWorker/">- SPACE WORKER -</a></li>
+               
+        </ul>
+    </nav>
     </body>
 </html>

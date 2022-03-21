@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//db.onlinewebfonts.com/c/d6233b581273bc3613330b732ef61dba?family=Robot+Z" rel="stylesheet" type="text/css"/>
+    <title></title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face{
+    font-family: "Robot Z";
+    src: url("//db.onlinewebfonts.com/t/d6233b581273bc3613330b732ef61dba.woff");
+    font-style: normal;
+    font-weight: 100;
+  }
+
+html{
+    font-size: 10px;
+    font-family: Robot Z, 'Courier New', Courier, monospace;
+}
+
+section{
+    width:100%;
+    height: 100vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #000000, #292929, #515353, #000000);
+    background-size: 400%, 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
+}
+
+h1 a{
+    font-size:7rem;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: aliceblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    transition: 0.5s ease-out;
+    
+}
+
+h1 a:hover{
+    font-size:8rem;
+    text-align: center;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+
+
+
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section>
+        <h1> <a href="main.html"> ALIEN ARTEFACTS </a> </h1>
+    </section>
+    
+</body>
+</html>

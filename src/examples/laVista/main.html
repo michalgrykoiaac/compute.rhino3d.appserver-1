@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="data:,">
+        <title>street_node_v3.gh</title>
+        <link href="style.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/6cd44c6a0a.js" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <div id="loader"></div> 
+        <div id="container">
+          
+          <div class="split left">
+            <div id="overlay">
+              <div id="return">
+                <i class="fa-solid fa-arrow-rotate-left fa-customize"></i>
+              </div>
+
+              <h1>LA VISTA</h1>
+
+
+              <div class="sliders">
+                
+            <div>
+              <h3>Site Set-up</h3>
+            </div>
+                <div>
+                  <input type="range" id="RH_IN:siteLength" class= "slider" name="site Length" min="100" max="300" value="200" step="1">
+                  <p>Site Length: <span id="siteLengthValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:siteWidth" class= "slider" name="site Width" min="50" max="150" value="150" step="1">
+                  <p>Site Width: <span id="siteWidthValue"></span></p>
+                </div>
+              </div>
+
+                
+
+              <div class="sliders">
+                <div>
+                  <h3>Street Set-up</h3>
+                </div>
+                <div>
+                  <input type="range" id="RH_IN:streetPosition" class= "slider" name="street Position" min="-10" max="10" value="0" step="1">
+                  <p>Street Position: <span id="streetPositionValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:streetAngle" class= "slider" name="street Angle" min="-35" max="35" value="-35" step="1">
+                  <p>Street Angle: <span id="streetAngleValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:streetWidth" class= "slider" name="street Width" min="4" max="24" value="21" step="1">
+                  <p>Street Width: <span id="streetWidthValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:buildingDepth" class= "slider" name="building Depth" min="12" max="24" value="24" step="1">
+                  <p>Building Depth: <span id="buildingDepthValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:buildingGapWidth" class= "slider" name="building Gap Width" min="4" max="15" value="5" step="1">
+                  <p>Building Gap Width: <span id="buildingGapWidthValue"></span></p>
+                </div>
+              </div>
+
+
+
+              <div class="sliders">
+                <div>
+                  <h3>Apartment Set-up</h3>
+                </div>
+                <div>
+                  <input type="range" id="RH_IN:podiumHeight" class= "slider" name="podium Height" min="3" max="12" value="4" step="1">
+                  <p>Podium Height: <span id="podiumHeightValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:floorHeight" class= "slider" name="floor Height" min="3" max="6" value="3" step="1">
+                  <p>Floor Height: <span id="floorHeightValue"></span></p>
+                </div>
+
+                <div>
+                  <input type="range" id="RH_IN:levelNumber" class= "slider" name="level Number" min="2" max="20" value="12" step="1">
+                  <p>level Number: <span id="levelNumberValue"></span></p>
+                </div>
+              </div>
+
+              <div class="sliders">
+                <div>
+                  <h3>Data</h3>
+                </div>
+                <div class=" datacontainer">
+                  
+                  <p>Green Area:  <span id="greenValues" class="valueInput"></span></p>
+                  
+                  <p>Apartment Area:  <span id="apartmentValues" class="valueInput"></span></p>
+                  
+                  <p>Podium Area:  <span id="podiumValues" class="valueInput"></span></p>
+                </div>
+              </div>
+
+
+            
+                <div><button id="downloadButton" disabled>Download</button></div>
+            
+          
+          </div>
+        </div>
+        <div class="split right">
+          <script type="module" src="./script.js"></script>
+          
+        </div>
+
+       
+    </body>
+</html>

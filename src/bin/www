@@ -107,7 +107,7 @@ function start(id){
 
     // print handy /view url
     if (typeof addr !== 'string') {
-      console.log(`Go to viewer: http://localhost:${addr.port}/examples/skyglazerFinal/`)
+      console.log(`Go to viewer: http://localhost:${addr.port}/examples/`)
     }
   }
 }

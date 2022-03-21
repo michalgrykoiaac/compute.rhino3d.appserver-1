@@ -1,0 +1,237 @@
+
+
+       @font-face{
+        font-family: "Robot Z";
+        src: url("//db.onlinewebfonts.com/t/d6233b581273bc3613330b732ef61dba.woff");
+        font-style: normal;
+        font-weight: 100;
+      }
+    
+  
+
+       
+       
+       @font-face{
+          font-family: "metropolis";
+          src: url(fonts/metropolis/Metropolis-Regular.woff);
+          font-style: normal;
+          font-weight: 100;
+        }
+        html{
+          font-family: metropolis;
+          font-size: 10px;
+        }
+      
+          
+   
+
+        body{ 
+          
+          background: linear-gradient(-45deg, #001aff, #9108e0, #eb5904, #d60000);
+          margin: 0;
+          overflow: hidden;
+          
+         
+          
+       }
+        
+   
+     .data{
+      font-family: metropolis;
+      font-size: 12px;
+      font-style: oblique;
+      margin: 5px 0px;
+      
+     }
+
+    
+   #overlay div h1 {
+      margin: 0.5px;
+      display: inline;
+      /*position: relative;*/
+      align-items: center;
+      /* font-family: 'Courier New', Courier, monospace; 'Permanent Marker'*/
+      font-family: metropolis;
+      font-size: 30px;
+      font-style: normal;
+      color: rgba(10, 10, 10, 0.9);
+      
+    }
+
+
+    h3 {
+      margin: 1px 1px;
+      padding: 2px 2px;
+      font-family: metropolis;
+      font-size: 12px;
+      font-style: normal;
+      color: black
+    }
+
+
+
+    input[type=range] {
+      width: 90%;
+    }
+
+
+  
+    #container {
+      position: relative;
+      
+    }
+
+    
+
+    /*///////////////////////////////////////////////////////////////////////////*/
+    #overlay {
+      z-index: 1;
+      width: 300px;
+     
+      
+    
+      background-color: rgba(230, 230, 230, 0);
+    }
+
+    .sliders p {
+      margin:3px 0px 3px 0px; 
+    }
+
+
+
+
+    #overlay div {
+      padding: 0.5px 0.5px;
+      
+    
+    }
+
+    .sliders {
+      margin: 10px 10px;
+      font-family: metropolis;
+      /*border-color: black;
+      border-width: 1px;
+      border-style: solid;*/
+      background-color: rgba(203, 224, 255, 0.521);
+      
+      
+      
+      
+    }
+
+    .split {
+      height: 100%;
+      width: 267px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+     
+      
+      
+    }
+
+    .left {
+      left: 0;
+     
+      
+    }
+
+    .right {
+      right: 0;
+      
+      
+    }
+
+    .getmodel {
+      position: relative;
+      background-color: rgb(115, 156, 196, 0.5);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      top: 50%;
+      left: 20%;
+    }
+
+    .getmodel:hover {
+      background-color: rgb(115, 156, 196);
+      border: solid 2px black;
+    }
+
+    /*///////////////////////////////////////////////////////////////////////////*/
+    #loader {
+      border: 5px solid #f3f3f3;
+      /* Light grey */
+      border-top: 5px solid #3d3d3d;
+      /* Grey */
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #downloadButton{
+      margin: 0px  auto ;
+      display: block;
+     
+      
+      
+     /*  border: 3px solid rgb(0, 162, 255);*/
+      
+    }
+
+.datacontainer p{
+  margin: 3px 2px;
+}
+
+.datacontainer{
+
+  padding: 20px;
+  margin-right: 20px;
+  display: block;
+}
+
+.data{
+  align-items: center;
+}
+
+h1{
+ margin:0px 0px;
+ padding: 0px 0px;
+   text-align: center;
+   background-color:transparent;
+   font-size:5rem;
+   
+   color: rgb(255, 255, 255);
+   font-family: Robot Z, 'Courier New', Courier, monospace;
+   letter-spacing: 6px;
+ }
+ 
+ #return{
+  position:absolute ;
+ bottom: 0;
+  left: 0;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.fa-customize{
+  font-size: 2rem;
+ color: white;
+}

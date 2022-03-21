@@ -1,153 +1,79 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>RhinoCompute: GH SubD Object</title>
-        <link href="style.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <script type="module" src="./script.js"></script>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+@font-face{
+    font-family: "metropolis";
+    src: url(fonts/metropolis/Metropolis-Regular.woff);
+    font-style: normal;
+    font-weight: 100;
+  }
+
+html{
+    font-size: 10px;
+    font-family: metropolis, 'Courier New', Courier, monospace;
+}
+
+section{
+    width:100%;
+    height: 100vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #5290ee, #a7d5f3, #23A6D5, #23D5AB);
+    background-size: 400%, 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
+}
+
+h1 a{
+    font-size:8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: aliceblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 1rem;
+    transition: 0.5s ease-out;
+    
+}
+
+h1 a:hover{
+    font-size:9rem;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+    </style>
+</head>
 <body>
+    <section>
+        <h1> <a href="main.html"> SKY GLAZER </a> </h1>
+    </section>
     
-    <div id="loader"></div>
-    <div class="grid-container">
-        
-
-        <div class ="sidebar">
-
-  
-
-
-        <!--2 SITE SET-UP-->
-        <div class="sliders">
-            
-            <div>
-                <h3>Site Set-up</h3>
-            </div>
-                <div >
-                    <input type="range" id="RH_IN:siteLength" class= "slider" name="siteLength" min="150" max="300" value="250" step="10">
-                    <!-- <label for="siteLength">Site Length</label>-->
-                    <p>Site Length: <span id="siteLengthvalue"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:siteWidth" class= "slider" name="siteWidth" min="50" max="150" value="100" step="10">
-                <p>Site Width: <span id="siteWidthvalue"></span></p>
-            </div>
-
-        </div>
-
-
-        <!--3 ARC CREATION-->
-        <div class="sliders">
-            
-            <div>
-                <h3>Arc Creation</h3>
-            </div>
-                <div>
-                <input type="range" id="RH_IN:arcRadius1" class= "slider" name="arcRadius1" min="1" max="10" value="4" step="1">
-                <p>arcRadius1: <span id="arcRadius1value"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:arcRadius2" class= "slider" name="arcRadius2" min="1" max="10" value="4" step="1">
-                <p>arcRadius2: <span id="arcRadius2value"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:arcRadius3" class= "slider" name="arcRadius3" min="1" max="10" value="4" step="1">
-                <p>arcRadius3: <span id="arcRadius3value"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:arcRadius4" class= "slider" name="arcRadius4" min="1" max="10" value="4" step="1">
-                <p>arcRadius4: <span id="arcRadius4value"></span></p>
-            </div>
-            
-        </div>
-        
-        <!--4 PANEL CREATION-->
-        <div class="sliders">
-            
-            <div>
-            <h3>Panel Creation</h3>
-            </div>
-            
-            <div class="radio-toolbar">
-                <span class = "radiolabel"></span>
-                <input type="radio" id="RH_IN:quadPanels" name="panelTypeRadio" value="0" >
-                <label for="RH_IN:quadPanels">Quad</label>
-
-                <input type="radio" id="RH_IN:triPanels" name="panelTypeRadio" value="1" checked>
-                <label for="RH_IN:triPanels">Triangle</label>
-
-                <input type="radio" id="RH_IN:diamondPanels" name="panelTypeRadio" value="2">
-                <label for="RH_IN:diamondPanels">Diamond</label> 
-            </div>
-          
-
-            <div>
-                <input type="range" id="RH_IN:uDivisions" name="U Divisions" class= "slider" min="2" max="30" value="30" step="1">
-                <p>U Divisions: <span id="uDivisionsvalue"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:vDivisions" name="V Divisions" class= "slider" min="2" max="30" value="30" step="1">
-                <p>V Divisions: <span id="vDivisionsvalue"></span></p>
-            </div>
-
-        </div>
-
-
-
-
-        <!--9 DATA--> 
-
-        <div class="sliders">
-
-            
-
-        
-            
-        </div>
-    </div>    
-        
-            
-        
-            
-            <div class="scene"></div>
-
-       
-
-     
-
-        <div class="datapanel">
-          <div class="datacontainer">
-          
-            <div>
-                <h3>Data</h3>
-            </div>
-            <div>
-                <h3 class ="data" id="skyVisibilityArea">  </h3>
-                <p>Area of Visibility:  <span id="skyVisibilityAreavalue"></span></p>
-                <h3 class ="data" id="centralPathLength">  </h3>
-                <p>Length of central Path: <span id="centralPathLengthvalue"></span></p>
-            </div>
-            <br></br>
-       
-        </div>
-    </div>
-
-            
-
-        </div>
-        </div>
-
-
-
-    
-        
-    
-
-
-
-   
-  </body>
-  
-  </html>
+</body>
+</html>
