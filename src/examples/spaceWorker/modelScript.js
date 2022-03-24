@@ -8,7 +8,7 @@ import { Rhino3dmLoader } from "https://cdn.jsdelivr.net/npm/three@0.124.0/examp
  
 
 //Define grasshopper script
-const definitionName = "workstationFinal.gh";
+const definition = "workstationFinal.gh";
 
 
 var growVal = 1;
@@ -18,8 +18,6 @@ var growVal = 1;
  
    
 // Set up texts
-
-
 const level1 = document.getElementById('level1');
 level1.addEventListener('click', radioClick,);
 const level2 = document.getElementById('level2');
@@ -34,155 +32,254 @@ level4.addEventListener('click', radioClick);
 const loader = new Rhino3dmLoader();
 loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/");
 
-let rhino, definition, doc;
-rhino3dm().then(async (m) => {
-  console.log("Loaded rhino3dm.");
-  rhino = m; // global
 
-  RhinoCompute.url = getAuth( 'RHINO_COMPUTE_URL' ) // RhinoCompute server url. Use http://localhost:8081 if debugging locally.
-  RhinoCompute.apiKey = getAuth( 'RHINO_COMPUTE_KEY' )  // RhinoCompute server api key. Leave blank if debugging locally.
-
-  //RhinoCompute.url = "http://localhost:8081/"; //if debugging locally.
-
-  // load a grasshopper file!
-
-  const url = definitionName;
-  const res = await fetch(url);
-  const buffer = await res.arrayBuffer();
-  const arr = new Uint8Array(buffer);
-  definition = arr;
-
-  init();
-  compute();
-
-})
-
-//function sets fixity values on click and recomputes
 function radioClick(){
 
-    const growButtons = document.querySelectorAll('input[name="growLevel"]');
-      for (const growButton of growButtons){
-          if (growButton.checked){
-            growVal = growButton.value;
-            console.log(growVal)
-          }
-        
-      }
+  const growButtons = document.querySelectorAll('input[name="growLevel"]');
+    for (const growButton of growButtons){
+        if (growButton.checked){
+          growVal = growButton.value;
+          console.log(growVal)
+        }
       
-    // show spinner
-    document.getElementById('loader').style.display = 'block'
-    compute()
+    }
+    
+  // show spinner
+  document.getElementById('loader').style.display = 'block'
+  compute()
 }
 
 
+let rhino, doc
 
-async function compute() {
 
-    console.log(growVal);
-  const param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:level')
-  param1.append([0], [growVal])
+
+rhino3dm().then(async m => {
+    console.log('Loaded rhino3dm.')
+    rhino = m // global
+    
+    init()
+    
+    compute()
+  })
+
   
-  // clear values
-  const trees = [];
-  trees.push(param1);
-
-  showSpinner(true)
 
 
 
-  const res = await RhinoCompute.Grasshopper.evaluateDefinition(
-    definition,
-    trees
-  );
- 
-  console.log(res);
-  
-  doc = new rhino.File3dm();
+/**
+ * Call appserver
+ */
+ async function compute () {
+    const data = {
+      definition: definition,
+      inputs: {
+       
+    
+       'RH_IN:level': parseInt(growVal),
 
-  // hide spinner
-  document.getElementById("loader").style.display = "none";
-
-  //decode grasshopper objects and put them into a rhino document
-  for (let i = 0; i < res.values.length; i++) {
-    for (const [key, value] of Object.entries(res.values[i].InnerTree)) {
-      for (const d of value) {
-        const data = JSON.parse(d.data);
-        const rhinoObject = rhino.CommonObject.decode(data);
-        doc.objects().add(rhinoObject, null);
       }
     }
-  }
-
-
-
-  // go through the objects in the Rhino document
-
-  let objects = doc.objects();
-  for ( let i = 0; i < objects.count; i++ ) {
   
-    const rhinoObject = objects.get( i );
+    showSpinner(true)
+  
+    console.log(data.inputs)
+    console.log(growVal)
 
-
-     // asign geometry userstrings to object attributes
-    if ( rhinoObject.geometry().userStringCount > 0 ) {
-      const g_userStrings = rhinoObject.geometry().getUserStrings()
-      rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
-      
+    const request = {
+      'method':'POST',
+      'body': JSON.stringify(data),
+      'headers': {'Content-Type': 'application/json'}
+    }
+  
+    try {
+      const response = await fetch('/solve', request)
+  
+      if(!response.ok)
+        throw new Error(response.statusText)
+  
+      const responseJson = await response.json()
+      collectResults(responseJson)
+  
+    } catch(error){
+      console.error(error)
     }
   }
+  
 
 
-  // clear objects from scene
-  scene.traverse((child) => {
-    if (!child.isLight) {
-      scene.remove(child);
-    }
-  });
+  function collectResults(responseJson) {
 
-  const buffer = new Uint8Array(doc.toByteArray()).buffer;
-  loader.parse(buffer, function (object) {
+    const values = responseJson.values
+  
+    console.log(values)
 
-    // go through all objects, check for userstrings and assing colors
+    //GET VALUES
 
-    object.traverse((child) => {
-      if (child.isLine) {
+  
+  //let colourVal = 111
 
-        if (child.userData.attributes.geometry.userStringCount > 0) {
+
+
+
+
+    // clear doc
+    try {
+      if( doc !== undefined)
+          doc.delete()
+    } catch {}
+  
+    //console.log(values)
+    doc = new rhino.File3dm()
+  
+    // for each output (RH_OUT:*)...
+    for ( let i = 0; i < values.length; i ++ ) {
+      // ...iterate through data tree structure...
+      for (const path in values[i].InnerTree) {
+        const branch = values[i].InnerTree[path]
+        // ...and for each branch...
+        for( let j = 0; j < branch.length; j ++) {
+          // ...load rhino geometry into doc
+          const rhinoObject = decodeItem(branch[j])
           
-          //get color from userStrings
-          const colorData = child.userData.attributes.userStrings[0]
-          const col = colorData[1];
 
-          //convert color from userstring to THREE color and assign it
-          const threeColor = new THREE.Color("rgb(" + col + ")");
-          const mat = new THREE.LineBasicMaterial({ color: threeColor });
-          child.material = mat;
+
+          if (rhinoObject !== null) {
+            doc.objects().add(rhinoObject, null)
+          }
         }
       }
-    });
+    }
+     //GET VALUES
   
-    ///////////////////////////////////////////////////////////////////////
-    // add object graph from rhino model to three.js scene
-    scene.add(object);
-    showSpinner(false)
-  });
-}
+     
+  
+
+    if (doc.objects().count < 1) {
+      console.error('No rhino objects to load!')
+      showSpinner(false)
+      return
+    }
+  
+    // load rhino doc into three.js scene
+    const buffer = new Uint8Array(doc.toByteArray()).buffer
+    loader.parse( buffer, function ( object ) 
+    {
+  
+        // clear objects from scene
+        scene.traverse(child => {
+          if ( child.userData.hasOwnProperty( 'objectType' ) && child.userData.objectType === 'File3dm') {
+            scene.remove( child )
+          }
+        })
+  
+       
+        ///////////////////////////////////////////////////////////////////////
+       
+        // color crvs
+        object.traverse((child) => {
+          if (child.isMesh) {
+    
+            if (child.userData.attributes.geometry.userStringCount > 0) {
+              
+              //get color from userStrings
+              const col = child.userData.attributes.geometry.userStrings[0][1];
+              
+            // const colorData = child.userData.attributes.userStrings[0]
+            //  const col = colorData[1];
+
+              //convert color from userstring to THREE color and assign it
+              const threeColor = new THREE.Color("rgb(" + col + ")");
+              console.log(threeColor);
+              //const mat = new THREE.MeshPhysicalMaterial({ color: threeColor });
+              
+            
+                let panelMaterial = new THREE.MeshPhysicalMaterial( {color: threeColor,envMap: hdrEquirect,  clearcoat: 1.0,
+                  clearcoatRoughness:0.1,
+                  metalness: 0.5,
+                  roughness:0.5,  ior: 2.5,  transparent: true, opacity: 0.6,  });
+                child.material = panelMaterial;
+              
+              
+              
+              //console.log(child);
+            }
+          }
+        })
+
+
+  
+
+        
+        ///////////////////////////////////////////////////////////////////////
+        // add object graph from rhino model to three.js scene
+        scene.add( object )
+  
+        // hide spinner and enable download button
+        showSpinner(false)
+        
+  
+    })
+  }
+  
+  /**
+  * Attempt to decode data tree item to rhino geometry
+  */
+  function decodeItem(item) {
+  const data = JSON.parse(item.data)
+  if (item.type === 'System.String') {
+    // hack for draco meshes
+    try {
+        return rhino.DracoCompression.decompressBase64String(data)
+    } catch {} // ignore errors (maybe the string was just a string...)
+  } else if (typeof data === 'object') {
+    return rhino.CommonObject.decode(data)
+  }
+  return null
+  }
+  
+  /**
+   * Called when a slider value changes in the UI. Collect all of the
+   * slider values and call compute to solve for a new scene
+   */
+   function onSliderChange () {
+    showSpinner(true)
+    // get slider values
+    /*let inputs = {}
+    for (const input of document.getElementsByTagName('input')) {
+      switch (input.type) {
+      case 'number':
+        inputs[input.id] = input.valueAsNumber
+        break
+      case 'range':
+        inputs[input.id] = input.valueAsNumber
+        break
+      case 'checkbox':
+        inputs[input.id] = input.checked
+        break
+      }
+    }
+    
+    data.inputs = inputs*/
+  
+    compute()
+  }
+  
+  
+  /**
+   * Shows or hides the loading spinner
+   */
+   function showSpinner(enable) {
+    if (enable)
+      document.getElementById('loader').style.display = 'block'
+    else
+      document.getElementById('loader').style.display = 'none'
+  }
 
 
 
-function onChange() {
-  // show spinner
-  document.getElementById("loader").style.display = "block";
-  compute();
-}
 
-function saveByteArray(fileName, byte) {
-  let blob = new Blob([byte], { type: 'application/octect-stream' })
-  let link = document.createElement('a')
-  link.href = window.URL.createObjectURL(blob)
-  link.download = fileName
-  link.click()
-}
+
 
 // THREE BOILERPLATE //
 let scene, camera, renderer, controls;
@@ -253,13 +350,3 @@ document.getElementById("return").addEventListener("click", () => {
   window.location.href= 'main.html';
 
   });
-
-  /**
- * Shows or hides the loading spinner
- */
-function showSpinner(enable) {
-  if (enable)
-    document.getElementById('loader').style.display = 'block'
-  else
-    document.getElementById('loader').style.display = 'none'
-}
