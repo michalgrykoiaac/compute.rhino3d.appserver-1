@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://kit.fontawesome.com/6cd44c6a0a.js" crossorigin="anonymous"></script>
+        <style>
+            body { margin: 0; font-family: Arial, Helvetica, sans-serif; overflow:hidden}
+            input {width: 90%;}
+            
+
+           
+
+            #overlay {
+                z-index: 1; 
+                width: 100%;  
+                
+            }
+        
+      
+            .radio-toolbar {
+            margin: 5px;
+           
+            display:flex;
+                justify-content: space-evenly;
+            }
+
+            /*hide circular radio buttons*/
+            .radio-toolbar input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+            }
+
+            .radio-toolbar label {
+                display: inline-block;
+                align-items: center;
+                background-color: rgba(221, 221, 221, 0);
+                padding: 5px 5px;
+                font-family: sans-serif, Arial;
+                font-size: 50px;
+                border-radius: 0px;
+            }
+
+            .radio-toolbar label:hover {
+            /*background-color: rgba(235, 235, 235, 0.685);*/
+            cursor: pointer;
+            }
+
+            .radio-toolbar input[type="radio"],input[value = "0"]:checked + label {
+                background-color: rgb(223, 220, 66);
+                color: black;
+                border: 1px solid white;
+            }
+            .radio-toolbar input[type="radio"],input[value = "1"]:checked + label {
+                background-color: rgb(223, 220, 66);
+                color: black;
+                border: 1px solid white;
+            }
+            .radio-toolbar input[type="radio"],input[value = "2"]:checked + label {
+                background-color: rgb(223, 220, 66);
+                color: black;
+                border: 1px solid white;
+            }
+            .radio-toolbar input[type="radio"],input[value = "3"]:checked + label {
+                background-color: rgb(223, 220, 66);
+                color:black;
+                border: 1px solid white;
+            }
+            .radio-toolbar input[type="radio"],input[value = "4"]:checked + label {
+                background-color: rgb(223, 220, 66);
+                color:black;
+                border: 1px solid white;
+            }
+           
+             
+        #return{
+            
+        position:absolute ;
+        bottom: 0;
+        left: 0;
+        margin: 0.5rem;
+        cursor: pointer;
+        z-index: 2; 
+        }
+
+        .fa-customize{
+        font-size: 1.5rem;
+        color: aliceblue;
+        
+        
+        
+}
+
+    
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+
+			/* CSS for a spinning animation */ 
+			#loader {
+                border: 5px solid #f3f3f3; /* Light grey */
+                border-top: 5px solid #3d3d3d; /* Grey */
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="loader"></div> 
+        
+             
+            <div id="overlay">
+                <div class="radio-toolbar">
+                    
+                    <input type="radio" id="level1" name="growLevel" value="1"checked>
+                    <label for="level1">level 1</label>
+
+                    <input type="radio" id="level2" name="growLevel" value="2">
+                    <label for="level2">level 2</label>
+
+                    <input type="radio" id="level3" name="growLevel" value="3">
+                    <label for="level3">level 3</label> 
+
+                    <input type="radio" id="level4" name="growLevel" value="4">
+                    <label for="level4">level 4</label> 
+
+                   <!-- <input type="radio" id="level5" name="growLevel" value="5">
+                    <label for="level5">level 5</label>-->
+        </div>
+
+        <div id="return">
+            <i class="fa-solid fa-arrow-rotate-left fa-customize"></i>
+        </div>
+
+    </div> 
+
+<div>
+        <script type="module" src="modelScript.js"></script>
+    </div>
+    </body>
+</html>

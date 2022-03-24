@@ -1,116 +1,76 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        
-        <style>
-            body { margin: 0; font-family: Arial, Helvetica, sans-serif; overflow:hidden}
-            input {width: 90%;}
-            #container {position: relative;display:block; }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//db.onlinewebfonts.com/c/d6233b581273bc3613330b732ef61dba?family=Robot+Z" rel="stylesheet" type="text/css"/>
+    <script src="https://kit.fontawesome.com/6cd44c6a0a.js" crossorigin="anonymous"></script>
+    <title></title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-           
+@font-face{
+    font-family: "Robot Z";
+    src: url("//db.onlinewebfonts.com/t/d6233b581273bc3613330b732ef61dba.woff");
+    font-style: normal;
+    font-weight: 100;
+  }
 
-            #overlay {
-                z-index: 1; 
-                width: 100%;  
-            }
-        
-      
-            .radio-toolbar {
-            margin: 5px;
-            display:block;
-                align-items: center;
-            }
+html{
+    font-size: 10px;
+    font-family: Robot Z, 'Courier New', Courier, monospace;
+}
 
-            /*hide circular radio buttons*/
-            .radio-toolbar input[type="radio"] {
-            opacity: 0;
-            position: fixed;
-            width: 0;
-            }
+section{
+    width:100%;
+    height: 100vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #000000, #292929, #515353, #000000);
+    background-size: 400%, 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
+}
 
-            .radio-toolbar label {
-                display: inline-block;
-                align-items: center;
-                background-color: rgba(221, 221, 221, 0);
-                padding: 5px 5px;
-                font-family: sans-serif, Arial;
-                font-size: 50px;
-                border-radius: 0px;
-            }
-
-            .radio-toolbar label:hover {
-            /*background-color: rgba(235, 235, 235, 0.685);*/
-            cursor: pointer;
-            }
-
-            .radio-toolbar input[type="radio"],input[value = "0"]:checked + label {
-                background-color: rgb(223, 220, 66);
-                color: black;
-                border: 1px solid white;
-            }
-            .radio-toolbar input[type="radio"],input[value = "1"]:checked + label {
-                background-color: rgb(223, 220, 66);
-                color: black;
-                border: 1px solid white;
-            }
-            .radio-toolbar input[type="radio"],input[value = "2"]:checked + label {
-                background-color: rgb(223, 220, 66);
-                color: black;
-                border: 1px solid white;
-            }
-            .radio-toolbar input[type="radio"],input[value = "3"]:checked + label {
-                background-color: rgb(223, 220, 66);
-                color:black;
-                border: 1px solid white;
-            }
-            .radio-toolbar input[type="radio"],input[value = "4"]:checked + label {
-                background-color: rgb(223, 220, 66);
-                color:black;
-                border: 1px solid white;
-            }
-           
-
-            .radiolabel
-            {
-                font-size: 10px;
-                display: inline-block;
-                text-align: left;
-                width: 40px;
-                font-weight: bold;
-                color: white;
-            }
-
+h1 a{
+    font-family: Robot Z, 'Courier New', Courier, monospace;
+    font-size:7rem;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: aliceblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    transition: 0.5s ease-out;
     
+}
 
-        </style>
-    </head>
-    <body>
-        <div id="loader"></div> 
-        <div id="container">
-            <div id="sidebar">
-             
-            <div id="overlay">
-                <div class="radio-toolbar">
-                    <span class = "radiolabel"></span>
-                    <input type="radio" id="level1" name="growLevel" value="0"checked>
-                    <label for="level1">level 1</label>
+h1 a:hover{
+    font-size:8rem;
+    text-align: center;
+}
 
-                    <input type="radio" id="level2" name="growLevel" value="1">
-                    <label for="level2">level 2</label>
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
 
-                    <input type="radio" id="level3" name="growLevel" value="2">
-                    <label for="level3">level 3</label> 
 
-                    <input type="radio" id="level4" name="growLevel" value="3">
-                    <label for="level4">level 4</label> 
 
-                    <input type="radio" id="level5" name="growLevel" value="4">
-                    <label for="level5">level 5</label> 
-                    
-          
-            </div>
-        </div>
-        <script type="module" src="script.js"></script>
-    </body>
+
+    </style>
+</head>
+<body>
+    
+    <section>
+        <div id="loader"></div>
+        <h1> <a href="main.html"> SPACE WORKER </a> </h1>
+    </section>
+    
+</body>
 </html>
