@@ -1,6 +1,6 @@
-# compute.rhino3d.appserver-1
+# SKYGLAZER
 A node.js server for solving Grasshopper definitions on Rhino Compute
-SKYGLAZER
+
 
 
 ![skyglazer screenshot](https://user-images.githubusercontent.com/97453175/177808658-6db38352-cf09-4f01-a5c2-f46c8cf63c73.png)
