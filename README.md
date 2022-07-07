@@ -62,3 +62,9 @@ Download
 *Lunch box plugin used for panelization
 **Extreme forms may cause panelization errors, if so adjust the arcs or starting points to fix
  
+Skyglazer is a project of IAAC, Institute for Advanced Architecture of Catalonia developed at Master in Advanced Computation for Architecture & Design in 2021/22 by:
+Student: Michal Gryko
+Lead faculty: David Andres Leon
+Faculty assistant: Hesham Shawqy
+
+Blog: https://www.iaacblog.com/programs/skyglazer-cloud-based-data-management/
