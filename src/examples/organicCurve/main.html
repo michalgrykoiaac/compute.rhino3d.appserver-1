@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Skyglazer Configurator</title>
+        <link href="style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script type="module" src="./script.js"></script>
+        <script src="https://kit.fontawesome.com/6cd44c6a0a.js" crossorigin="anonymous"></script>
+        <link rel="icon" href="./faviconSkyglazer.ico" type="image/x-icon">
+    </head>
+
+<body class="bg">
+    
+    <div id="loader"></div>
+    <div class="grid-container">
+        
+
+        <div class ="sidebar">
+
+         
+
+
+        
+        <!--1 ARC CREATION-->
+        <div class="sliders">
+            
+            <div>
+                <h3>1: Form</h3>
+            </div>
+
+            <div  >
+                <label for = 'upload' class = 'customUpload'></label>
+                <input type = "file" accept = ".3dm" id="upload"/>
+                <div >Upload</div>
+            </div>
+
+
+                <div>
+                <input type="range" id="RH_IN:arcRadius1" class= "slider" name="arcRadius1" min="1" max="10" value="6" step="0.5">
+                <p>arcRadius 1: <span id="arcRadius1value"></span></p>
+            </div>
+            <div>
+                <input type="range" id="RH_IN:arcRadius2" class= "slider" name="arcRadius2" min="1" max="10" value="3" step="0.5">
+                <p>arcRadius 2: <span id="arcRadius2value"></span></p>
+            </div>
+            <div>
+                <input type="range" id="RH_IN:arcRadius3" class= "slider" name="arcRadius3" min="1" max="10" value="2" step="0.5">
+                <p>arcRadius 3: <span id="arcRadius3value"></span></p>
+            </div>
+            <div>
+                <input type="range" id="RH_IN:arcRadius4" class= "slider" name="arcRadius4" min="1" max="10" value="2" step="0.5">
+                <p>arcRadius 4: <span id="arcRadius4value"></span></p>
+            </div>
+            
+        </div>
+        
+        <!--2 PANEL CREATION-->
+        <div class="sliders">
+            
+            <div>
+            <h3>2: Panelization</h3>
+            </div>
+
+            <div>
+                <input type="checkbox" id="RH_IN:showWireframe" name="Wireframe" >
+                <label for="showWireframe">Frame</label> 
+            </div>
+            
+            <div class="radio-toolbar">
+                <span class = "radiolabel"></span>
+                <input type="radio" id="RH_IN:quadPanels" name="panelTypeRadio" value="0" >
+                <label for="RH_IN:quadPanels">Quad</label>
+
+                <input type="radio" id="RH_IN:triPanels" name="panelTypeRadio" value="1" checked>
+                <label for="RH_IN:triPanels">Triangle</label>
+
+                <input type="radio" id="RH_IN:diamondPanels" name="panelTypeRadio" value="2">
+                <label for="RH_IN:diamondPanels">Diamond</label> 
+            </div>
+          
+
+            <div>
+                <input type="range" id="RH_IN:uDivisions" name="U Divisions" class= "slider" min="2" max="30" value="15" step="1">
+                <p>U Divisions: <span id="uDivisionsvalue"></span></p>
+            </div>
+            <div>
+                <input type="range" id="RH_IN:vDivisions" name="V Divisions" class= "slider" min="2" max="30" value="15" step="1">
+                <p>V Divisions: <span id="vDivisionsvalue"></span></p>
+            </div>
+
+        </div>
+
+
+   <!--3 PANEL COLOURING--> 
+   <div class="sliders">
+            
+    <div>
+    <h3>3: Colouring</h3>
+    </div>
+   
+    <div>
+        <input type="checkbox" id="RH_IN:showColour" name="Show Colour" >
+        <label for="showColour">Show Colour</label> 
+    </div>
+    
+    <div class="radio-toolbar">
+        <span class = "radiolabel"> </span>
+        <input type="radio" id="RH_IN:heat" name="panelTypeRadio3" value="0" >
+        <label for="RH_IN:heat">Heat</label>
+
+        <input type="radio" id="RH_IN:rainbow" name="panelTypeRadio3" value="1" checked>
+        <label for="RH_IN:rainbow">Rainbow</label>
+
+        <input type="radio" id="RH_IN:red" name="panelTypeRadio3" value="2">
+        <label for="RH_IN:red">Red</label> 
+    </div>
+
+
+</div>
+
+
+
+        <!--4 PANEL GROUPING--> 
+        <div class="sliders">
+            
+            <div>
+            <h3>4: Grouping</h3>
+            </div>
+            <div>
+                <input type="checkbox" id="RH_IN:showGroupNumbers" name="Show Group Numbers">
+                <label for="showPanelNumbers">Show Group Number</label> 
+            </div>
+
+        <div class="radio-toolbar">
+                <span class = "radiolabel"></span>
+                <input type="radio" id="RH_IN:curvature" name="panelTypeRadio2" value="0" >
+                <label for="RH_IN:curvature">Curvature</label>
+
+                <input type="radio" id="RH_IN:Xaxis" name="panelTypeRadio2" value="1" checked>
+                <label for="RH_IN:Xaxis">X Axis</label>
+
+                <input type="radio" id="RH_IN:scattered" name="panelTypeRadio2" value="2">
+                <label for="RH_IN:scattered">Scattered</label> 
+            </div>
+
+            <div>
+                <input type="range" id="RH_IN:panelTypeNumber" name="Number of Panel Types" class= "slider" min="2" max="20" value="6" step="1">
+                <p>Number of Panel Types: <span id="panelTypeNumbervalue"></span></p>
+            </div>
+
+        </div class="button container">
+
+
+        <button id="downloadButton" class= "button">Download</button>
+
+      
+
+       
+    </div>    
+
+            <div class="scene">
+                
+            </div>
+
+        <div class="bottombar">
+            <div >
+                <button id="btn-plan" class= "button">Top</button>
+              <!--<button id="btn-1">FEELING LUCKY</button>--> 
+                <button id="btn-perspective" class= "button">Perspective</button>
+                
+            </div>
+        </div>
+
+  <!--9 DATA--> 
+
+
+        <div class="datapanel">
+          <div class="datacontainer">
+          
+            <div>
+                <h3></h3>
+            </div>
+            <div>
+                <h3 class ="data" id="skyVisibilityArea">  </h3>
+                <p>Surface Area:  <span id="skyVisibilityAreavalue" class="valueInput"></span></p>
+                <h3 class ="data" id="centralPathLength">  </h3>
+                <p>Length of central Path: <span id="centralPathLengthvalue"class="valueInput" ></span></p>
+            </div>
+            <!--9  <br></br> -->
+            <div>
+                <h3 class ="data" id="groupType">  </h3>
+                <p>Type of Grouping: <span id="groupTypevalue"class="valueInput"></span></p>
+                <h3 class ="data" id="panelType">  </h3>
+                <p>Type of Panel: <span id="panelTypevalue"class="valueInput"></span></p>
+                <h3 class ="data" id="colorGradient">  </h3>
+                <p>Colour Gradient: <span id="colorGradientvalue"class="valueInput"></span></p>
+                <h3 class ="data" id="panelNumber">  </h3>
+                <p>Number of Panels: <span id="panelNumbervalue"class="valueInput"></span></p>
+              
+                <h3 class ="data" id="panelTypeNumber">  </h3>
+                <p>Number of Panel Types: <span id="panelTypesNumbervalue"class="valueInput"></span></p>
+            </div>
+        </div>
+    </div>
+        <div class="layerpanel">
+                <!--7 LAYER OPTIONS--> 
+                <div class="layerdropdown">
+                <button class ="dropdown_button" > Layers <i class ="fa fa-caret-right" ></i></button>
+                <div class ="dropdown_menu hide" >
+                    <div>
+                        <input type="checkbox"  id="RH_IN:showArcs" name="Arcs" checked>
+                        <label for="showArcs">Arcs</label> 
+                    </div>
+                    <div>
+                        <input type="checkbox" id="RH_IN:showBoundary"  name="Boundary">
+                        <label for="showBoundary">Boundary</label> 
+                    </div>
+                    <div>
+                        <input type="checkbox" id="RH_IN:showPath"  name="Path" checked>
+                        <label for="showPath">Path</label> 
+                    </div>
+                    <div>
+                        <input type="checkbox" id="RH_IN:showTerrain" name="Terrain" >
+                        <label for="showTerrain">Terrain</label> 
+                    </div>
+                    <div>
+                        <input type="checkbox" id="RH_IN:showPeople" name="People" >
+                        <label for="showPeople">People</label> 
+                    </div>
+                    <div>
+                        <input type="checkbox" id="RH_IN:showTrees" name="Trees" >
+                        <label for="showTrees">Trees</label> 
+                    </div>
+                   
+                    <div>
+                        <input type="checkbox" id="showControlPoints" name="ControlPoints" checked>
+                        <label for="showControlPoints">Control Points</label> 
+                    </div>
+                   
+                </div>
+                
+                <div id="return">
+                    <i class="fa-solid fa-arrow-rotate-left fa-customize"></i>
+                </div>
+                
+
+            </div>
+        
+            
+
+        </div>
+        </div>
+
+
+
+      
+    
+
+
+
+   
+  </body>
+  
+  </html>
