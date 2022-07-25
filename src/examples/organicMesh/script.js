@@ -1,8 +1,9 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js'
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js'
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.127.0/build/three.module.js";
+      import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/controls/OrbitControls.js";
+      import { Rhino3dmLoader } from "https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/loaders/3DMLoader.js";
+      import rhino3dm from "https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js";
+
 import { TransformControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/TransformControls.js'
-import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/3DMLoader.js'
-import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js'
 import TWEEN from 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js';
 import { RGBELoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examples/jsm/loaders/RGBELoader.js';
 
@@ -25,59 +26,44 @@ var hdrEquirect = new RGBELoader()
 } );
 
 
-
-
-
 async function readSingleFile(e) {
   // get file
-  var file = e.target.files[0]
+  var file = e.target.files[0];
   if (!file) {
-    document.getElementById('errorMessage').innerText = 'Something went wrong...'
-    return
+    document.getElementById("msg").innerText = "Something went wrong...";
+    return;
   }
 
   // try to open 3dm file
-  const buffer = await file.arrayBuffer()
-  const uploadDoc = rhino.File3dm.fromByteArray(new Uint8Array(buffer))
+  const buffer = await file.arrayBuffer();
+  const uploadDoc = rhino.File3dm.fromByteArray(new Uint8Array(buffer));
 
   if (uploadDoc === null) {
-    document.getElementById('errorMessage').innerText = 'Must be a .3dm file!'
-    return
+    document.getElementById("msg").innerText = "Must be a .3dm file!";
+    return;
   }
 
   // get geometry from file
-  const objs = uploadDoc.objects()
-  const geoLines = []
- 
-
+  const objs = uploadDoc.objects();
+  const geometry = [];
   for (let i = 0; i < objs.count; i++) {
-    const geom = objs.get(i).geometry()
+    const geom = objs.get(i).geometry();
     // filter for geometry of a specific type
-    if (geom instanceof rhino.Curve) {
-        geoLines.push(JSON.stringify(geom.encode()))
+    if (geom instanceof rhino.Brep || geom instanceof rhino.Mesh) {
+      geometry.push(JSON.stringify(geom));
     }
-    if (geom instanceof rhino.Point) {
-        geoPoints.push(JSON.stringify(geom))
-    }
-
-    if (geom instanceof rhino.Brep || geom instanceof rhino.Extrusion) {
-        geoBreps.push(JSON.stringify(geom))
-      }
-    
   }
-  
-  // solve!
-  data.inputs.curve = geoLines
- 
 
-  console.log(data.inputs)
-  
-  compute()
+  // solve!
+  data.inputs.mesh = geometry;
+  compute();
 }
 
-// register event listener for file input
-document.getElementById('upload')
-  .addEventListener('change', readSingleFile, false);
+
+      // register event listener for file input
+      document
+        .getElementById("file-input")
+        .addEventListener("change", readSingleFile, false);
 
 
 
@@ -346,7 +332,7 @@ rhino3dm().then(async m => {
         'RH_IN:showColour': showColour.checked,
         'RH_IN:colourType': parseInt(colourTypeVal),
       'RH_IN:points': points,
-     
+      'mesh': [],
           
 
       
@@ -386,6 +372,14 @@ rhino3dm().then(async m => {
     }
   }
   
+
+
+
+
+
+
+
+
 
 
   
