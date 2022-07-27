@@ -25,6 +25,80 @@ var hdrEquirect = new RGBELoader()
 
 } );
 
+      // initialise 'data' object that will be used by compute()
+      const data = {
+        inputs: {
+          mesh: [],
+        },
+      };
+
+
+
+/**
+ * Call appserver
+ */
+ async function compute () {
+  const data = {
+    definition: definition,
+    inputs: {
+     
+  
+     'RH_IN:arcRadius1': arcRadius1.valueAsNumber,
+     'RH_IN:arcRadius2': arcRadius2.valueAsNumber,
+     'RH_IN:arcRadius3': arcRadius3.valueAsNumber,
+     'RH_IN:arcRadius4': arcRadius4.valueAsNumber,
+      'RH_IN:uDivisions': uDivisions.valueAsNumber,
+      'RH_IN:vDivisions': vDivisions.valueAsNumber,
+      'RH_IN:panelType': parseInt(panelTypeVal),
+      'RH_IN:panelGroupingType': parseInt(panelGroupTypeVal),
+      'RH_IN:showGroupNumbers': showGroupNumbers.checked,
+      'RH_IN:panelTypeNumber': panelTypeNumber.valueAsNumber,
+      'RH_IN:showColour': showColour.checked,
+      'RH_IN:colourType': parseInt(colourTypeVal),
+    'RH_IN:points': points,
+    
+        
+
+    
+    'RH_IN:showArcs': showArcs.checked, 
+   'RH_IN:showBoundary': showBoundary.checked,
+    'RH_IN:showPath':showPath.checked, 
+    'RH_IN:showTerrain': showTerrain.checked, 
+    'RH_IN:showPeople':showPeople.checked, 
+    'RH_IN:showTrees': showTrees.checked, 
+    'RH_IN:showWireframe': showWireframe.checked, 
+    
+     
+    }
+  }
+
+  showSpinner(true)
+
+  console.log(data.inputs)
+  console.log(panelTypeVal)
+  const request = {
+    'method':'POST',
+    'body': JSON.stringify(data),
+    'headers': {'Content-Type': 'application/json'}
+  }
+
+  try {
+    const response = await fetch('/solve', request)
+
+    if(!response.ok)
+      throw new Error(response.statusText)
+
+    const responseJson = await response.json()
+    collectResults(responseJson)
+
+  } catch(error){
+    console.error(error)
+  }
+}
+
+
+
+
 
 async function readSingleFile(e) {
   // get file
@@ -310,68 +384,6 @@ rhino3dm().then(async m => {
   downloadButton.onclick = download
 
 
-/**
- * Call appserver
- */
- async function compute () {
-    const data = {
-      definition: definition,
-      inputs: {
-       
-    
-       'RH_IN:arcRadius1': arcRadius1.valueAsNumber,
-       'RH_IN:arcRadius2': arcRadius2.valueAsNumber,
-       'RH_IN:arcRadius3': arcRadius3.valueAsNumber,
-       'RH_IN:arcRadius4': arcRadius4.valueAsNumber,
-        'RH_IN:uDivisions': uDivisions.valueAsNumber,
-        'RH_IN:vDivisions': vDivisions.valueAsNumber,
-        'RH_IN:panelType': parseInt(panelTypeVal),
-        'RH_IN:panelGroupingType': parseInt(panelGroupTypeVal),
-        'RH_IN:showGroupNumbers': showGroupNumbers.checked,
-        'RH_IN:panelTypeNumber': panelTypeNumber.valueAsNumber,
-        'RH_IN:showColour': showColour.checked,
-        'RH_IN:colourType': parseInt(colourTypeVal),
-      'RH_IN:points': points,
-      'mesh': [],
-          
-
-      
-      'RH_IN:showArcs': showArcs.checked, 
-     'RH_IN:showBoundary': showBoundary.checked,
-      'RH_IN:showPath':showPath.checked, 
-      'RH_IN:showTerrain': showTerrain.checked, 
-      'RH_IN:showPeople':showPeople.checked, 
-      'RH_IN:showTrees': showTrees.checked, 
-      'RH_IN:showWireframe': showWireframe.checked, 
-      
-       
-      }
-    }
-  
-    showSpinner(true)
-  
-    console.log(data.inputs)
-    console.log(panelTypeVal)
-    const request = {
-      'method':'POST',
-      'body': JSON.stringify(data),
-      'headers': {'Content-Type': 'application/json'}
-    }
-  
-    try {
-      const response = await fetch('/solve', request)
-  
-      if(!response.ok)
-        throw new Error(response.statusText)
-  
-      const responseJson = await response.json()
-      collectResults(responseJson)
-  
-    } catch(error){
-      console.error(error)
-    }
-  }
-  
 
 
 

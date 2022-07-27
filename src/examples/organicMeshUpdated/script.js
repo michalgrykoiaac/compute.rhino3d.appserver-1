@@ -1,19 +1,17 @@
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.127.0/build/three.module.js";
+      import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/controls/OrbitControls.js";
+      import { Rhino3dmLoader } from "https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/loaders/3DMLoader.js";
+      import rhino3dm from "https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js";
 
-//import { TransformControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/TransformControls.js'
-
-
-
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.137.5/build/three.module.js";
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.137.5/examples/jsm/controls/OrbitControls.js";
-import rhino3dm from "https://cdn.jsdelivr.net/npm/rhino3dm@7.11.1/rhino3dm.module.js";
-import { Rhino3dmLoader } from "https://cdn.jsdelivr.net/npm/three@0.137.5/examples/jsm/loaders/3DMLoader.js";
+import { TransformControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/TransformControls.js'
 import TWEEN from 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js';
+import { RGBELoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examples/jsm/loaders/RGBELoader.js';
 
 // set up loader for converting the results to threejs
 const loader = new Rhino3dmLoader()
 loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 
-const definition = 'skyglazer final curve.gh'
+const definition = 'skyglazer final meshTESTINGv3.gh'
 var panelTypeVal = 1;
 var panelGroupTypeVal = 1;
 var colourTypeVal = 1;
@@ -27,9 +25,83 @@ var hdrEquirect = new RGBELoader()
 
 } );
 
+      // initialise 'data' object that will be used by compute()
+      const data = {
+        inputs: {
+          mesh: [],
+        },
+      };
 
 
 
+/**
+ * Call appserver
+ */
+ async function compute () {
+  const data = {
+    definition: definition,
+    inputs: {
+     
+  
+
+     'RH_IN:showOriginalMesh': showOriginalMesh.checked,
+
+
+
+     
+     'RH_IN:showGridshellWireframe': showGridshellWireframe.checked,
+     'RH_IN:showGridshell': showGridshell.checked,
+     'RH_IN:gridAngle': gridAngle.valueAsNumber,
+     'RH_IN:gridSize': gridSize.valueAsNumber,
+     
+    
+      'RH_IN:uDivisions': uDivisions.valueAsNumber,
+      'RH_IN:vDivisions': vDivisions.valueAsNumber,
+      'RH_IN:panelType': parseInt(panelTypeVal),
+      'RH_IN:panelGroupingType': parseInt(panelGroupTypeVal),
+      'RH_IN:showGroupNumbers': showGroupNumbers.checked,
+      'RH_IN:panelTypeNumber': panelTypeNumber.valueAsNumber,
+      'RH_IN:showColour': showColour.checked,
+      'RH_IN:colourType': parseInt(colourTypeVal),
+    
+    
+        
+
+    
+
+   'RH_IN:showBoundary': showBoundary.checked,
+    'RH_IN:showTerrain': showTerrain.checked, 
+    'RH_IN:showPeople':showPeople.checked, 
+    'RH_IN:showTrees': showTrees.checked, 
+    'RH_IN:showWireframe': showWireframe.checked, 
+    
+     
+    }
+  }
+
+  showSpinner(true)
+
+  console.log(data.inputs)
+  console.log(panelTypeVal)
+  const request = {
+    'method':'POST',
+    'body': JSON.stringify(data),
+    'headers': {'Content-Type': 'application/json'}
+  }
+
+  try {
+    const response = await fetch('/solve', request)
+
+    if(!response.ok)
+      throw new Error(response.statusText)
+
+    const responseJson = await response.json()
+    collectResults(responseJson)
+
+  } catch(error){
+    console.error(error)
+  }
+}
 
 
 
@@ -37,84 +109,42 @@ var hdrEquirect = new RGBELoader()
 
 async function readSingleFile(e) {
   // get file
-  var file = e.target.files[0]
+  var file = e.target.files[0];
   if (!file) {
-    document.getElementById('errorMessage').innerText = 'Something went wrong...'
-    return
+    document.getElementById("msg").innerText = "Something went wrong...";
+    return;
   }
 
   // try to open 3dm file
-  const buffer = await file.arrayBuffer()
-  const uploadDoc = rhino.File3dm.fromByteArray(new Uint8Array(buffer))
+  const buffer = await file.arrayBuffer();
+  const uploadDoc = rhino.File3dm.fromByteArray(new Uint8Array(buffer));
 
   if (uploadDoc === null) {
-    document.getElementById('errorMessage').innerText = 'Must be a .3dm file!'
-    return
+    document.getElementById("msg").innerText = "Must be a .3dm file!";
+    return;
   }
 
   // get geometry from file
-  const objs = uploadDoc.objects()
-  const geoLines = []
- 
-
+  const objs = uploadDoc.objects();
+  const geometry = [];
   for (let i = 0; i < objs.count; i++) {
-    const geom = objs.get(i).geometry()
+    const geom = objs.get(i).geometry();
     // filter for geometry of a specific type
-    if (geom instanceof rhino.Curve) {
-        geoLines.push(JSON.stringify(geom.encode()))
+    if (geom instanceof rhino.Brep || geom instanceof rhino.Mesh) {
+      geometry.push(JSON.stringify(geom));
     }
-    if (geom instanceof rhino.Point) {
-        geoPoints.push(JSON.stringify(geom))
-    }
-
-    if (geom instanceof rhino.Brep || geom instanceof rhino.Extrusion) {
-        geoBreps.push(JSON.stringify(geom))
-      }
-    
   }
-  
-  // solve!
-  data.inputs.curve = geoLines
- 
 
-  console.log(data.inputs)
-  
-  compute()
+  // solve!
+  data.inputs.mesh = geometry;
+  compute();
 }
 
-// register event listener for file input
-document.getElementById('upload')
-  .addEventListener('change', readSingleFile, false);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      // register event listener for file input
+      document
+        .getElementById("file-input")
+        .addEventListener("change", readSingleFile, false);
 
 
 
@@ -149,35 +179,41 @@ function randomColor(event){
 luckyButton.addEventListener("click", randomColor);*/
 
 
+//3 Mesh inputs
+
+
+const showOriginalMesh = document.getElementById( 'RH_IN:showOriginalMesh' )
+showOriginalMesh.addEventListener( 'change', onSliderChange, false )
+
+
 //3 Arc Creation inputs
-const arcRadius1 = document.getElementById( 'RH_IN:arcRadius1' )
-var arcRadius1Output = document.getElementById("arcRadius1value");
-arcRadius1Output.innerHTML = arcRadius1.value + "m";
-arcRadius1.oninput = function() { arcRadius1Output.innerHTML = this.value;}
 
-arcRadius1.addEventListener( 'mouseup', onSliderChange, false )
-arcRadius1.addEventListener( 'touchend', onSliderChange, false )
 
-const arcRadius2 = document.getElementById( 'RH_IN:arcRadius2' )
-var arcRadius2Output = document.getElementById("arcRadius2value");
-arcRadius2Output.innerHTML = arcRadius2.value + "m";
-arcRadius2.oninput = function() { arcRadius2Output.innerHTML = this.value;}
-arcRadius2.addEventListener( 'mouseup', onSliderChange, false )
-arcRadius2.addEventListener( 'touchend', onSliderChange, false )
+const showGridshellWireframe = document.getElementById( 'RH_IN:showGridshellWireframe' )
+showGridshellWireframe.addEventListener( 'change', onSliderChange, false )
 
-const arcRadius3 = document.getElementById( 'RH_IN:arcRadius3' )
-var arcRadius3Output = document.getElementById("arcRadius3value");
-arcRadius3Output.innerHTML = arcRadius3.value + "m";
-arcRadius3.oninput = function() { arcRadius3Output.innerHTML = this.value;}
-arcRadius3.addEventListener( 'mouseup', onSliderChange, false )
-arcRadius3.addEventListener( 'touchend', onSliderChange, false )
+const showGridshell = document.getElementById( 'RH_IN:showGridshell' )
+showGridshell.addEventListener( 'change', onSliderChange, false )
 
-const arcRadius4 = document.getElementById( 'RH_IN:arcRadius4' )
-var arcRadius4Output = document.getElementById("arcRadius4value");
-arcRadius4Output.innerHTML = arcRadius4.value + "m";
-arcRadius4.oninput = function() { arcRadius4Output.innerHTML = this.value;}
-arcRadius4.addEventListener( 'mouseup', onSliderChange, false )
-arcRadius4.addEventListener( 'touchend', onSliderChange, false )
+
+
+const gridAngle = document.getElementById( 'RH_IN:gridAngle' )
+var gridAngleOutput = document.getElementById("gridAnglevalue");
+gridAngleOutput.innerHTML = gridAngle.value + "m";
+gridAngle.oninput = function() { gridAngleOutput.innerHTML = this.value;}
+
+gridAngle.addEventListener( 'mouseup', onSliderChange, false )
+gridAngle.addEventListener( 'touchend', onSliderChange, false )
+
+const gridSize = document.getElementById( 'RH_IN:gridSize' )
+var gridSizeOutput = document.getElementById("gridSizevalue");
+gridSizeOutput.innerHTML = gridSize.value + "m";
+gridSize.oninput = function() { gridSizeOutput.innerHTML = this.value;}
+
+gridSize.addEventListener( 'mouseup', onSliderChange, false )
+gridSize.addEventListener( 'touchend', onSliderChange, false )
+
+
 
 
 //4 Panel Creation inputs
@@ -215,11 +251,11 @@ vDivisions.addEventListener( 'touchend', onSliderChange, false )
 const showGroupNumbers = document.getElementById( 'RH_IN:showGroupNumbers' )
 showGroupNumbers.addEventListener( 'change', onSliderChange, false )
 
-const curvature = document.getElementById( 'RH_IN:curvature' )
+const curvature = document.getElementById( 'RH_IN:scattered' )
 curvature.addEventListener( 'change', radioClick )
 const Xaxis = document.getElementById( 'RH_IN:Xaxis' )
 Xaxis.addEventListener( 'change', radioClick )
-const scattered = document.getElementById( 'RH_IN:scattered' )
+const scattered = document.getElementById( 'RH_IN:kmeans' )
 scattered.addEventListener( 'change', radioClick )
 
 
@@ -252,14 +288,11 @@ red.addEventListener( 'change', radioClick)
 
 //7 Layer Options inputs
 
-const showArcs = document.getElementById( 'RH_IN:showArcs' )
-showArcs.addEventListener( 'change', onSliderChange, false )
+
 
 const showBoundary = document.getElementById( 'RH_IN:showBoundary' )
 showBoundary.addEventListener( 'change', onSliderChange, false )
 
-const showPath = document.getElementById( 'RH_IN:showPath' )
-showPath.addEventListener( 'change', onSliderChange, false )
 
 const showTerrain = document.getElementById( 'RH_IN:showTerrain' )
 showTerrain.addEventListener( 'change', onSliderChange, false )
@@ -277,6 +310,26 @@ document.getElementById("return").addEventListener("click", () => {
   window.location.href= '../index.html';
 
   });
+
+const showControlPoints = document.getElementById( 'showControlPoints' )
+showControlPoints.addEventListener( 'change', function(e) {
+  if(showControlPoints.checked){
+    scene.traverse(obj => {
+      if ( obj.name === 'tcontrols' ) {
+        obj.visible = true;
+        console.log("ischecked");
+      }
+    });
+   
+  }else{
+    scene.traverse(obj => {
+      if ( obj.name === 'tcontrols' ) {
+        obj.visible = false;
+        console.log("inotschecked");
+  }
+});
+  }
+});
 
 
 
@@ -324,14 +377,13 @@ let cameraPerspective, cameraOrtho;
 let cameraPerspectiveHelper, cameraOrthoHelper;
 let rhino, doc
 
-var tcontrols
 
 rhino3dm().then(async m => {
     console.log('Loaded rhino3dm.')
     rhino = m // global
     
     init()
-   
+    
     compute()
   })
 
@@ -339,82 +391,6 @@ rhino3dm().then(async m => {
 
   const downloadButton = document.getElementById("downloadButton")
   downloadButton.onclick = download
-
-
-/**
- * Call appserver
- */
- async function compute () {
-    const data = {
-      definition: definition,
-      inputs: {
-       
-    
-       'RH_IN:arcRadius1': arcRadius1.valueAsNumber,
-       'RH_IN:arcRadius2': arcRadius2.valueAsNumber,
-       'RH_IN:arcRadius3': arcRadius3.valueAsNumber,
-       'RH_IN:arcRadius4': arcRadius4.valueAsNumber,
-        'RH_IN:uDivisions': uDivisions.valueAsNumber,
-        'RH_IN:vDivisions': vDivisions.valueAsNumber,
-        'RH_IN:panelType': parseInt(panelTypeVal),
-        'RH_IN:panelGroupingType': parseInt(panelGroupTypeVal),
-        'RH_IN:showGroupNumbers': showGroupNumbers.checked,
-        'RH_IN:panelTypeNumber': panelTypeNumber.valueAsNumber,
-        'RH_IN:showColour': showColour.checked,
-        'RH_IN:colourType': parseInt(colourTypeVal),
-        'curve': [],
-          
-
-      
-      'RH_IN:showArcs': showArcs.checked, 
-     'RH_IN:showBoundary': showBoundary.checked,
-      'RH_IN:showPath':showPath.checked, 
-      'RH_IN:showTerrain': showTerrain.checked, 
-      'RH_IN:showPeople':showPeople.checked, 
-      'RH_IN:showTrees': showTrees.checked, 
-      'RH_IN:showWireframe': showWireframe.checked, 
-      
-       
-      }
-    }
-  
-    showSpinner(true)
-  
-    console.log(data.inputs)
-    console.log(panelTypeVal)
-    const request = {
-      'method':'POST',
-      'body': JSON.stringify(data),
-      'headers': {'Content-Type': 'application/json'}
-    }
-  
-    try {
-      const response = await fetch('/solve', request)
-  
-      if(!response.ok)
-        throw new Error(response.statusText)
-  
-      const responseJson = await response.json()
-      collectResults(responseJson)
-  
-    } catch(error){
-      console.error(error)
-    }
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -436,8 +412,12 @@ rhino3dm().then(async m => {
     console.log(values)
 
     //GET VALUES
+    let memberNumber = "????"
+    let shortestMember = "????"
+    let longestMember = "????"
+
+
     let skyArea = "????"
-    let centralPathLength = "????"
     let colourGradient = "????"
     let panelNumber = "????"
     let panelTypeNumber = "????"
@@ -491,16 +471,31 @@ rhino3dm().then(async m => {
 
 
           //GET VALUES
+
+          if (values[i].ParamName == "RH_OUT:member_number") {
+            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            memberNumber = Math.round(branch[j].data)
+            console.log(`memberNumber is ${memberNumber}`)
+          }
+
+          if (values[i].ParamName == "RH_OUT:shortest_member") {
+            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            shortestMember = Math.round(branch[j].data)
+            console.log(`shortestMember is ${shortestMember}`)
+          }
+
+          if (values[i].ParamName == "RH_OUT:longest_member") {
+            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            longestMember = Math.round(branch[j].data)
+            console.log(`longestMember is ${longestMember}`)
+          }
+
+
+
           if (values[i].ParamName == "RH_OUT:sky_visibility_area") {
             //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
             skyArea = Math.round(branch[j].data)
             console.log(`sky area is ${skyArea}`)
-          }
-
-           if (values[i].ParamName == "RH_OUT:central_path_length") {
-            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
-           centralPathLength = Math.round(branch[j].data)
-            console.log(centralPathLength)
           }
 
             if (values[i].ParamName == "RH_OUT:panel_type") {
@@ -544,8 +539,12 @@ rhino3dm().then(async m => {
       }
     }
      //GET VALUES
+     document.getElementById('memberNumbervalue').innerText =  memberNumber 
+     document.getElementById('shortestMembervalue').innerText =  shortestMember + " m"
+     document.getElementById('longestMembervalue').innerText =  longestMember + " m"
+
+
      document.getElementById('skyVisibilityAreavalue').innerText =  skyArea + " m2"
-     document.getElementById('centralPathLengthvalue').innerText =  centralPathLength + " m"
      document.getElementById('panelTypevalue').innerText =  panelType.slice(1, -1); 
      document.getElementById('colorGradientvalue').innerText =   colourGradient.slice(1, -1);
      document.getElementById('panelNumbervalue').innerText =   panelNumber
@@ -720,6 +719,10 @@ document.getElementById("btn-plan").addEventListener("click", () => {
   .start();
   
 });
+
+
+
+
 
 
 

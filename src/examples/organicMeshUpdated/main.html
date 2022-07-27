@@ -8,9 +8,6 @@
         <script type="module" src="./script.js"></script>
         <script src="https://kit.fontawesome.com/6cd44c6a0a.js" crossorigin="anonymous"></script>
         <link rel="icon" href="./faviconSkyglazer.ico" type="image/x-icon">
-
-
-        
     </head>
 
 <body class="bg">
@@ -21,48 +18,90 @@
 
         <div class ="sidebar">
 
-         
+           <!-- <h1>SKYGLAZER</h1>-->
 
 
         
-        <!--1 ARC CREATION-->
+        <!--1 MESH UPLOAD-->
         <div class="sliders">
             
             <div>
                 <h3>1: Form</h3>
             </div>
 
-            <div  >
-                <label for = 'upload' class = 'customUpload'></label>
-                <input type = "file" accept = ".3dm" id="upload"/>
+
+            <div >
+                <label for = 'upload closed Mesh' class = 'customUpload'></label>
+                <input type = "file" accept = ".3dm" id="file-input"/>
                 <div >Upload</div>
             </div>
 
 
+    
+         <!-- <div id="msg">
+            Choose a .3dm file that has mesh 
+          </div>-->
+
                 <div>
-                <input type="range" id="RH_IN:arcRadius1" class= "slider" name="arcRadius1" min="1" max="10" value="6" step="0.5">
-                <p>arcRadius 1: <span id="arcRadius1value"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:arcRadius2" class= "slider" name="arcRadius2" min="1" max="10" value="3" step="0.5">
-                <p>arcRadius 2: <span id="arcRadius2value"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:arcRadius3" class= "slider" name="arcRadius3" min="1" max="10" value="2" step="0.5">
-                <p>arcRadius 3: <span id="arcRadius3value"></span></p>
-            </div>
-            <div>
-                <input type="range" id="RH_IN:arcRadius4" class= "slider" name="arcRadius4" min="1" max="10" value="2" step="0.5">
-                <p>arcRadius 4: <span id="arcRadius4value"></span></p>
-            </div>
+                    <input type="checkbox" id="RH_IN:showOriginalMesh" name="showOriginalMesh" checked>
+                    <label for="showGOriginalMesh">Original Mesh</label> 
+                </div>
             
         </div>
+
+
+
+
+
+
+       <!--2 GRIDSHELL CREATION-->
+       <div class="sliders">
+            
+        <div>
+            <h3>2: Gridshell</h3>
+        </div>
+
+
+            <div>
+                <input type="checkbox" id="RH_IN:showGridshellWireframe" name="showGridshellWireframe" >
+                <label for="showGridshellWireframe">Gridshell WireFrame</label> 
+            </div>
+
+            <div>
+                <input type="checkbox" id="RH_IN:showGridshell" name="showGridshell" >
+                <label for="showGridshell">Gridshell</label> 
+            </div>
+
+
+
+            <div>
+            <input type="range" id="RH_IN:gridSize" class= "slider" name="gridSize" min="1" max="5" value="3" step="1">
+            <p>Grid Size: <span id="gridSizevalue"></span></p>
+            </div>
+
+            <div>
+           <input type="range" id="RH_IN:gridAngle" class= "slider" name="gridAngle" min="0" max="360" value="0" step="10">
+            <p>Grid Angle: <span id="gridAnglevalue"></span></p>
+            </div>
+
         
-        <!--2 PANEL CREATION-->
+    </div>
+
+
+
+
+
+
+
+
+
+
+        
+        <!--3 PANEL CREATION-->
         <div class="sliders">
             
             <div>
-            <h3>2: Panelization</h3>
+            <h3>3: Panelization</h3>
             </div>
 
             <div>
@@ -95,11 +134,11 @@
         </div>
 
 
-   <!--3 PANEL COLOURING--> 
+   <!--4 PANEL COLOURING--> 
    <div class="sliders">
             
     <div>
-    <h3>3: Colouring</h3>
+    <h3>4: Colouring</h3>
     </div>
    
     <div>
@@ -124,11 +163,11 @@
 
 
 
-        <!--4 PANEL GROUPING--> 
+        <!--5 PANEL GROUPING--> 
         <div class="sliders">
             
             <div>
-            <h3>4: Grouping</h3>
+            <h3>5: Grouping</h3>
             </div>
             <div>
                 <input type="checkbox" id="RH_IN:showGroupNumbers" name="Show Group Numbers">
@@ -137,14 +176,14 @@
 
         <div class="radio-toolbar">
                 <span class = "radiolabel"></span>
-                <input type="radio" id="RH_IN:curvature" name="panelTypeRadio2" value="0" >
-                <label for="RH_IN:curvature">Curvature</label>
+                <input type="radio" id="RH_IN:scattered" name="panelTypeRadio2" value="0" >
+                <label for="RH_IN:scattered">Scattered</label>
 
                 <input type="radio" id="RH_IN:Xaxis" name="panelTypeRadio2" value="1" checked>
                 <label for="RH_IN:Xaxis">X Axis</label>
 
-                <input type="radio" id="RH_IN:scattered" name="panelTypeRadio2" value="2">
-                <label for="RH_IN:scattered">Scattered</label> 
+                <input type="radio" id="RH_IN:kmeans" name="panelTypeRadio2" value="2">
+                <label for="RH_IN:kmeans">K-Means</label> 
             </div>
 
             <div>
@@ -187,8 +226,13 @@
             <div>
                 <h3 class ="data" id="skyVisibilityArea">  </h3>
                 <p>Surface Area:  <span id="skyVisibilityAreavalue" class="valueInput"></span></p>
-                <h3 class ="data" id="centralPathLength">  </h3>
-                <p>Length of central Path: <span id="centralPathLengthvalue"class="valueInput" ></span></p>
+                <h3 class ="data" id="memberNumber">  </h3>
+                <p>Member Number:  <span id="memberNumbervalue" class="valueInput"></span></p>
+                <h3 class ="data" id="shortestMember">  </h3>
+                <p>Shortest Length:  <span id="shortestMembervalue" class="valueInput"></span></p>
+                <h3 class ="data" id="longestMember">  </h3>
+                <p>Longest Length:  <span id="longestMembervalue" class="valueInput"></span></p>
+
             </div>
             <!--9  <br></br> -->
             <div>
@@ -206,23 +250,19 @@
             </div>
         </div>
     </div>
+
+
         <div class="layerpanel">
-                <!--7 LAYER OPTIONS--> 
+                <!--10 LAYER OPTIONS--> 
                 <div class="layerdropdown">
                 <button class ="dropdown_button" > Layers <i class ="fa fa-caret-right" ></i></button>
                 <div class ="dropdown_menu hide" >
-                    <div>
-                        <input type="checkbox"  id="RH_IN:showArcs" name="Arcs" checked>
-                        <label for="showArcs">Arcs</label> 
-                    </div>
+               
                     <div>
                         <input type="checkbox" id="RH_IN:showBoundary"  name="Boundary">
                         <label for="showBoundary">Boundary</label> 
                     </div>
-                    <div>
-                        <input type="checkbox" id="RH_IN:showPath"  name="Path" checked>
-                        <label for="showPath">Path</label> 
-                    </div>
+               
                     <div>
                         <input type="checkbox" id="RH_IN:showTerrain" name="Terrain" >
                         <label for="showTerrain">Terrain</label> 

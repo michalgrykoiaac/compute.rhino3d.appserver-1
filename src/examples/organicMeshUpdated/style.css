@@ -19,7 +19,7 @@
    margin: 0;
    
 
-   background: linear-gradient( #5290ee, #a7d5f3, #23A6D5 );
+   background: linear-gradient( #000000, #dcdcdc, #2f3a3e );
  
      /* The image used 
   background-image: url(textures/sky_gradient_clouds.jpg);*/
@@ -161,7 +161,7 @@ h1{
   .sliders {
     margin: 10px 5px;
     font-family: metropolis;
-    background-color: rgba(119, 183, 255, 0.603);
+    background-color: rgba(255, 213, 0, 0.26);
     border-radius: 0px;
     padding: 0px 0px;
   }
@@ -213,7 +213,7 @@ h1{
     transition: ease-out 0.3s;
     font-size: 2rem;
     outline: none;
-    border: 3px solid #42fbf2;
+    border: 3px solid rgba(202, 172, 19, 0.76);
     position:relative;
     z-index:1;
     align-items: center;
@@ -257,7 +257,7 @@ h1{
     bottom: 0;
     opacity:0;
     content:"";
-    background-color: #42fbf2;
+    background-color: rgba(235, 214, 108, 0.313);
 
 }
 
@@ -343,17 +343,17 @@ p{
   }
 
   .radio-toolbar input[type="radio"],input[value = "0"]:checked + label {
-      background-color: rgb(0, 162, 255);
+      background-color: rgb(114, 88, 32);
       color: rgb(255, 255, 255);
       border: 1px solid white;
   }
   .radio-toolbar input[type="radio"],input[value = "1"]:checked + label {
-      background-color: rgb(0, 162, 255);
+      background-color: rgb(114, 88, 32);
       color: rgb(255, 255, 255);
       border: 1px solid white;
   }
   .radio-toolbar input[type="radio"],input[value = "2"]:checked + label {
-      background-color: rgb(0, 162, 255);
+      background-color: rgb(114, 88, 32);
       color: rgb(255, 255, 255);
       border: 1px solid white;
   }
@@ -376,12 +376,12 @@ p{
 #downloadButton{
   margin: 5px auto;
   display: block;
-  border: 3px solid rgb(0, 162, 255);
+  border: 3px solid  rgb(114, 88, 32);
   
 }
 
 .button{
-  border: 3px solid rgb(0, 162, 255);
+  border: 3px solid  rgb(114, 88, 32);
 }
 
   #loader {
