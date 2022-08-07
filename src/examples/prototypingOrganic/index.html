@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./faviconSkyglazer.ico" type="image/x-icon">
+    <title>Skyglazer</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face{
+    font-family: "metropolis";
+    src: url(fonts/metropolis/Metropolis-Regular.woff);
+    font-style: normal;
+    font-weight: 100;
+  }
+
+html{
+    font-size: 10px;
+    font-family: metropolis, 'Courier New', Courier, monospace;
+}
+
+section{
+    width:100%;
+    height: 100vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #000000, #5e5e5e, #dcdcdc, #272e2c);
+    background-size: 400%, 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
+}
+
+h1 a{
+    font-size:8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: aliceblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 1rem;
+    transition: 0.5s ease-out;
+    text-align: center;
+    
+}
+
+h1 a:hover{
+    font-size:9rem;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section>
+        <h1> <a href="main.html"> PROTOTYPING THE ORGANIC </a> </h1>
+    </section>
+    
+</body>
+</html>

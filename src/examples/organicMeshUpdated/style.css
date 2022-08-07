@@ -35,6 +35,20 @@
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .grid-container{
   display:grid;
   grid-template-columns: 1fr 3fr 0.7fr;
@@ -69,7 +83,7 @@ span {
 }
 
 .scene, canvas {
-  grid-column: 2/4;
+  grid-column: 1/4;
   grid-row: 1/5;
   
 }

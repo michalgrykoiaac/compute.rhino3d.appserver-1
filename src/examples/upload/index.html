@@ -90,9 +90,9 @@
 
       // initialise 'data' object that will be used by compute()
       const data = {
-        definition: "brep_union.gh",
+        definition: "mesh.gh",
         inputs: {
-          breps: [],
+          mesh: [],
         },
       };
 
@@ -137,13 +137,13 @@
         for (let i = 0; i < objs.count; i++) {
           const geom = objs.get(i).geometry();
           // filter for geometry of a specific type
-          if (geom instanceof rhino.Brep || geom instanceof rhino.Extrusion) {
+          if (geom instanceof rhino.Brep || geom instanceof rhino.Mesh) {
             geometry.push(JSON.stringify(geom));
           }
         }
 
         // solve!
-        data.inputs.breps = geometry;
+        data.inputs.mesh = geometry;
         compute();
       }
 
@@ -296,7 +296,7 @@
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        const countBefore = data.inputs.breps.length;
+        const countBefore = data.inputs.mesh.length;
         const countAfter = doc.objects().count;
         document.getElementById(
           "msg"
