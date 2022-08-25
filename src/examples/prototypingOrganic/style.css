@@ -143,13 +143,15 @@ h1{
 .datacontainer{
   align-items: center;
   /*float: right;*/
-  background-color: rgba(255, 255, 255, 0.096);
+  background-color: #aeaeae;
   padding: 20px;
   margin-right: 20px;
   margin-top: 30px;
 }
 
-
+.tickBox{
+  margin: 2px 2px;
+}
 
 
 
@@ -164,9 +166,14 @@ h1{
     font-family: metropolis;
     background-color: #aeaeae;
     border-radius: 0px;
-    padding: 1px 5px;
+    padding: 1px 2px;
   }
 
+
+  .sliders div {
+    padding: 0.1px 1px;
+    
+  }
 
   input[type="checkbox"] {
     /* Add if not using autoprefixer */

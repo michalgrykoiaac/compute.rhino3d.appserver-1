@@ -11,7 +11,7 @@ import { RGBELoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examples/
 const loader = new Rhino3dmLoader()
 loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 
-const definition = 'skyglazer final meshTESTINGv3.gh'
+const definition = 'PrototypingOrganic.gh'
 var panelTypeVal = 1;
 var panelGroupTypeVal = 1;
 var colourTypeVal = 1;
@@ -400,6 +400,7 @@ rhino3dm().then(async m => {
     let panelTypeNumber = "????"
     let panelType = "????"
     let groupingType = "????"
+    let panelSize = "????"
   
   //let colourVal = 111
 
@@ -449,6 +450,14 @@ rhino3dm().then(async m => {
 
           //GET VALUES
 
+          if (values[i].ParamName == "RH_OUT:panel_size") {
+            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+           panelSize = branch[j].data
+            console.log(panelType)
+          }
+
+
+
           if (values[i].ParamName == "RH_OUT:member_number") {
             //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
             memberNumber = Math.round(branch[j].data)
@@ -480,6 +489,8 @@ rhino3dm().then(async m => {
            panelType = branch[j].data
             console.log(panelType)
           }
+
+
 
 
            if (values[i].ParamName == "RH_OUT:colour_gradient") {
@@ -520,7 +531,7 @@ rhino3dm().then(async m => {
      document.getElementById('shortestMembervalue').innerText =  shortestMember + " m"
      document.getElementById('longestMembervalue').innerText =  longestMember + " m"
 
-
+     document.getElementById('panelSizevalue').innerText =  panelSize.slice(1, -1) + " m2"
      document.getElementById('skyVisibilityAreavalue').innerText =  skyArea + " m2"
      document.getElementById('panelTypevalue').innerText =  panelType.slice(1, -1); 
      document.getElementById('colorGradientvalue').innerText =   colourGradient.slice(1, -1);

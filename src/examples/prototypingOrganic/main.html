@@ -32,8 +32,8 @@
 
             <div >
                 <label for = 'upload closed Mesh' class = 'customUpload'></label>
-                <p>Please upload image prompt below:</p>
-                <input type = "file" accept = ".3dm" id="file-input"/>
+                <p>Please upload jpg image prompt below:</p>
+                <input type = "file" accept = ".jpg" id="file-input"/>
                 <!--<div >Upload natural image</div>-->
             </div>
 
@@ -49,57 +49,12 @@
             Choose a .3dm file that has mesh 
           </div>-->
 
-                <div>
+                <div class="tickBox">
                     <input type="checkbox" id="RH_IN:showOriginalMesh" name="showOriginalMesh" checked>
                     <label for="showGOriginalMesh">Show AI Generated Mesh</label> 
                 </div>
             
         </div>
-
-
-
-
-
-
-       <!--2 GRIDSHELL CREATION-->
-       <div class="sliders">
-            
-        <div>
-            <h3>Gridshell</h3>
-        </div>
-
-
-            <div>
-                <input type="checkbox" id="RH_IN:showGridshellWireframe" name="showGridshellWireframe" >
-                <label for="showGridshellWireframe">Gridshell WireFrame</label> 
-            </div>
-
-            <div>
-                <input type="checkbox" id="RH_IN:showGridshell" name="showGridshell" >
-                <label for="showGridshell">Gridshell Thickness</label> 
-            </div>
-
-
-
-            <div>
-            <input type="range" id="RH_IN:gridSize" class= "slider" name="gridSize" min="1" max="5" value="3" step="1">
-            <p>Grid Size: <span id="gridSizevalue"></span></p>
-            </div>
-
-            <div>
-           <input type="range" id="RH_IN:gridAngle" class= "slider" name="gridAngle" min="0" max="360" value="0" step="10">
-            <p>Grid Angle: <span id="gridAnglevalue"></span></p>
-            </div>
-
-        
-    </div>
-
-
-
-
-
-
-
 
 
 
@@ -111,7 +66,7 @@
             <h3>Panelization</h3>
             </div>
 
-            <div>
+            <div class="tickBox">
                 <input type="checkbox" id="RH_IN:showWireframe" name="Wireframe" >
                 <label for="showWireframe">Frame</label> 
             </div>
@@ -130,17 +85,17 @@
           
 
             <div>
-                <input type="range" id="RH_IN:uDivisions" name="U Divisions" class= "slider" min="2" max="30" value="15" step="1">
+                <input type="range" id="RH_IN:uDivisions" name="U Divisions" class= "slider" min="2" max="50" value="20" step="1">
                 <p>U Divisions: <span id="uDivisionsvalue"></span></p>
             </div>
             <div>
-                <input type="range" id="RH_IN:vDivisions" name="V Divisions" class= "slider" min="2" max="30" value="15" step="1">
+                <input type="range" id="RH_IN:vDivisions" name="V Divisions" class= "slider" min="2" max="50" value="15" step="1">
                 <p>V Divisions: <span id="vDivisionsvalue"></span></p>
             </div>
 
  
    
-    <div>
+    <div class="tickBox">
         <input type="checkbox" id="RH_IN:showColour" name="Show Colour" >
         <label for="showColour">Show Colour</label> 
     </div>
@@ -158,7 +113,7 @@
     </div>
 
 
-            <div>
+            <div class="tickBox">
                 <input type="checkbox" id="RH_IN:showGroupNumbers" name="Show Group Numbers">
                 <label for="showPanelNumbers">Show Group Number</label> 
             </div>
@@ -180,12 +135,52 @@
                 <p>Number of Panel Types: <span id="panelTypeNumbervalue"></span></p>
             </div>
 
+
+       <!--2 GRIDSHELL CREATION-->
+       <div class="sliders">
+            
+        <div>
+            <h3>Gridshell</h3>
+        </div>
+
+
+            <div class="tickBox">
+                <input type="checkbox" id="RH_IN:showGridshellWireframe" name="showGridshellWireframe" >
+                <label for="showGridshellWireframe">Gridshell WireFrame</label> 
+            </div>
+
+            <div class="tickBox">
+                <input type="checkbox" id="RH_IN:showGridshell" name="showGridshell" >
+                <label for="showGridshell">Gridshell Thickness</label> 
+            </div>
+
+
+
+            <div>
+            <input type="range" id="RH_IN:gridSize" class= "slider" name="gridSize" min="1" max="5" value="4" step="1">
+            <p>Grid Size: <span id="gridSizevalue"></span></p>
+            </div>
+
+            <div>
+           <input type="range" id="RH_IN:gridAngle" class= "slider" name="gridAngle" min="0" max="360" value="45" step="5">
+            <p>Grid Angle: <span id="gridAnglevalue"></span></p>
+            </div>
+
+        
+    </div>
+
+
+
+
+
+
+
+
+
         </div class="button container">
 
 
         <button id="downloadButton" class= "button">Download</button>
-
-      
 
        
     </div>    
@@ -208,22 +203,8 @@
 
         <div class="datapanel">
           <div class="datacontainer">
-          
-            <div>
-                <h3> Gridshell Data</h3>
-            </div>
-            <div>
-                <h3 class ="data" id="skyVisibilityArea">  </h3>
-                <p>Surface Area:  <span id="skyVisibilityAreavalue" class="valueInput"></span></p>
-                <h3 class ="data" id="memberNumber">  </h3>
-                <p>Member Number:  <span id="memberNumbervalue" class="valueInput"></span></p>
-                <h3 class ="data" id="shortestMember">  </h3>
-                <p>Shortest Length:  <span id="shortestMembervalue" class="valueInput"></span></p>
-                <h3 class ="data" id="longestMember">  </h3>
-                <p>Longest Length:  <span id="longestMembervalue" class="valueInput"></span></p>
 
-            </div>
-             <br></br> 
+
             <div>
                 <h3> Panelization Data</h3>
             </div>
@@ -239,9 +220,32 @@
               
                 <h3 class ="data" id="panelTypeNumber">  </h3>
                 <p>Number of Panel Types: <span id="panelTypesNumbervalue"class="valueInput"></span></p>
+                <h3 class ="data" id="panelSize">  </h3>
+                <p>Panel Size:  <span id="panelSizevalue" class="valueInput"></span></p>
+            </div>
+     
+          
+    <br></br> 
+    <br></br> 
+
+            <div>
+                <h3> Gridshell Data</h3>
+            </div>
+            <div>
+                
+                <h3 class ="data" id="skyVisibilityArea">  </h3>
+                <p>Surface Area:  <span id="skyVisibilityAreavalue" class="valueInput"></span></p>
+                <h3 class ="data" id="memberNumber">  </h3>
+                <p>Member Number:  <span id="memberNumbervalue" class="valueInput"></span></p>
+                <h3 class ="data" id="shortestMember">  </h3>
+                <p>Shortest Length:  <span id="shortestMembervalue" class="valueInput"></span></p>
+                <h3 class ="data" id="longestMember">  </h3>
+                <p>Longest Length:  <span id="longestMembervalue" class="valueInput"></span></p>
+
             </div>
         </div>
-    </div>
+    </div>    
+
 
 
         <div class="layerpanel">
