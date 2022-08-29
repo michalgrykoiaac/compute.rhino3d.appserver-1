@@ -395,6 +395,7 @@ rhino3dm().then(async m => {
 
 
     let skyArea = "????"
+    
     let colourGradient = "????"
     let panelNumber = "????"
     let panelTypeNumber = "????"
