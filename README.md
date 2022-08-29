@@ -1,5 +1,10 @@
 
 
+
+![Screenshot (129)](https://user-images.githubusercontent.com/97453175/187233761-53148333-4091-4469-a5de-0db55993064c.png)
+
+
+
 # PROTOTYPING THE ORGANIC
 A node.js server for solving Grasshopper definitions on Rhino Compute. 
 
